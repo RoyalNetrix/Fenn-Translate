@@ -1,0 +1,10 @@
+id          = "translate"
+name        = "Translate"
+description = "Translate the clipboard. Hotkey Ctrl+Alt+Y. Uses Google Translate's free web endpoint."
+version     = "0.1.2"
+icon        = "translate"
+size        = "wide"
+mode        = "live"
+hotkey      = "ctrl+alt+KeyY"
+page_size   = [560, 300]
+run         = ["python", "main.py"]
