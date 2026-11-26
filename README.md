@@ -6,8 +6,10 @@ Translate whatever is on your clipboard from the Fenn notch.
 
 - Copy some text, then click **Clipboard** on the page (or press Ctrl+Alt+Y) and the translation appears. Opening the page never reads your clipboard.
 - **Ctrl+Alt+Y** translates the clipboard from anywhere and opens the notch on the result.
-- Target language chips: English, Sinhala, Tamil, Hindi, Japanese, Spanish. The source language is detected automatically.
-- A box to type text, and a button to copy the translation.
+- Language chips show your six most recent languages (English, Sinhala, Tamil, Hindi, Japanese and Spanish to start). Type any other language in the box (`French`, `ur`, `Thai`) and it joins the chips. 43 languages are built in, and the source language is detected automatically.
+- A box to type text, a button to copy the translation, and a **Copy result** switch that puts each translation on your clipboard automatically (off by default).
+- Texts up to 4,500 characters are translated in pieces.
+- If Google doesn't answer, the backup service MyMemory is used.
 
 ## Install
 
@@ -19,29 +21,31 @@ Requires Fenn with plugin support.
 
 ## Requirements
 
-Python 3.8+ with `tkinter` (included in the standard python.org Windows installer) for reading the clipboard. No extra packages, no API key.
+Python 3.8+ (Fenn can set it up for you, or use your own) with `tkinter` (included in the standard python.org Windows installer) for reading the clipboard. No extra packages, no API key.
 
 ## Network and privacy
 
-- `translate.googleapis.com`: Google Translate's free web endpoint.
-- **Your text is sent to Google** (the first 1,500 characters), and only when you press the Clipboard button, press the hotkey, or submit the text box. Don't use it for passwords or private material.
-- This is an unofficial endpoint and can change or stop working.
+- `translate.googleapis.com`: Google Translate's free web endpoint. This is an unofficial endpoint and can change or stop working.
+- `api.mymemory.translated.net`: MyMemory's free translation API, used **only if Google fails**. It takes smaller pieces of text and is less accurate.
+- **Your text is sent to Google (or to MyMemory if Google fails)**, up to 4,500 characters, and only when you press the Clipboard button, press the hotkey, or submit the text box. Don't use it for passwords or private material.
 
 ## Settings and data
 
-- Target language is saved in `%APPDATA%\Fenn\plugin-data\translate\config.json`.
+- Target language, recent languages and the Copy result switch are saved in `%APPDATA%\Fenn\plugin-data\translate\config.json`.
 - Change the hotkey in `plugin.toml` (`hotkey = "ctrl+alt+KeyY"`) if it clashes with something.
 
 ## Limitations
 
-- Long texts are cut to 1,500 characters and the page previews the first 600 characters of the result.
-- More languages: edit the `LANGS` list at the top of `main.py` (name, code).
+- Texts over 4,500 characters are cut, and the page previews the first 600 characters of the result.
+- The backup service handles about 1,500 characters and may be less accurate.
+- With Copy result on, pressing the hotkey again translates the translation, because it is now on your clipboard.
+- The built-in list has 43 languages. To add more, add `(name, code)` pairs to `LANGS` at the top of `main.py`.
 
 ## Troubleshooting
 
 - **Tile says "Stopped":** hover it to see the error and the last lines of the plugin's output.
-- **Nothing happens:** make sure `python --version` works in a new PowerShell window. If it doesn't, install Python from python.org and tick "Add python.exe to PATH".
-- **Full log:** The `.log` file in `%APPDATA%\Fenn\` has the plugin's errors.
+- **Nothing happens:** Fenn can set up Python for you. If that didn't work, make sure `python --version` works in a new PowerShell window, or install Python from python.org and tick "Add python.exe to PATH".
+- **Full log:** the logs of the last ten Fenn runs are in `%APPDATA%\Fenn\logs`.
 - **Plugins are programs.** They run with the same rights as Fenn. Read the code (it is one short file) before installing any plugin.
 
 ## Credits and license
